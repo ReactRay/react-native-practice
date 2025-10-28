@@ -13,6 +13,8 @@
     "expo-env.d.ts",
     "app/(coffee)/index.jsx",
     "app/(tabs)/explorejsx",
-    "app/(coffee)/Contact.jsx"
+    "app/(coffee)/Contact.jsx",
+    "app/index.jsx",
+    "app/_layout.jsx"
   ]
 }
