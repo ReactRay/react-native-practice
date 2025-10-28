@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import AddNoteModal from '../components/AddNoteModal';
+import NoteList from '../components/NoteList';
 
 const NoteScreen = () => {
-    const [ModalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
     const [newNote, setNewNote] = useState('');
     const [notes, setNotes] = useState([
         { id: 1, text: 'First Note' },
@@ -14,7 +16,7 @@ const NoteScreen = () => {
 
     function addNote() {
         if (newNote.trim() === '') return; // Prevent adding empty notes
-        setNotes([...notes, { id: notes.length + 1, text: newNote }]);
+        setNotes(prevNotes => [...prevNotes, { id: prevNotes.length + 1, text: newNote }]);
         setNewNote('');
         setModalVisible(false);
     }
@@ -23,48 +25,15 @@ const NoteScreen = () => {
         <View style={styles.container}>
             <Text style={styles.header}>My Notes</Text>
 
-            <FlatList
-                data={notes}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <View style={styles.noteItem}>
-                        <Text style={styles.noteText}>{item.text}</Text>
-                    </View>
-                )}
-            />
+            <NoteList notes={notes} />
 
             <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
                 <Text style={styles.addButtonText}>+ Add Note</Text>
             </TouchableOpacity>
 
             {/* Modal */}
-            <Modal
-                visible={ModalVisible}
-                animationType="slide"
-                transparent
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContainer}>
-                        <Text style={styles.modalTitle}>Add Your Note</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Enter text"
-                            value={newNote}
-                            onChangeText={setNewNote}
-                            placeholderTextColor="#888"
-                        />
+            {modalVisible && <AddNoteModal modalVisible={modalVisible} setModalVisible={setModalVisible} newNote={newNote} setNewNote={setNewNote} addNote={addNote} setNotes={setNotes} />}
 
-                        <TouchableOpacity style={styles.saveButton} onPress={addNote}>
-                            <Text style={styles.saveButtonText} >Save Note</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.cancel} onPress={() => setModalVisible(false)}>
-                            <Text style={styles.cancelText}>x</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
         </View>
     );
 };
@@ -73,7 +42,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f3f8f9',
-        paddingTop: 60,
+        paddingVertical: 20,
         paddingHorizontal: 20,
     },
     header: {
@@ -103,7 +72,7 @@ const styles = StyleSheet.create({
         bottom: 40,
         left: 30,
         right: 30,
-        backgroundColor: '#00cc66',
+        backgroundColor: '#00c9ccff',
         paddingVertical: 15,
         borderRadius: 12,
         alignItems: 'center',
@@ -147,7 +116,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     saveButton: {
-        backgroundColor: '#00cc66',
+        backgroundColor: '#00c9ccff',
         paddingVertical: 14,
         borderRadius: 10,
         alignItems: 'center',
@@ -160,12 +129,13 @@ const styles = StyleSheet.create({
     cancel: {
         position: 'absolute',
         backgroundColor: '#ff4d4d',
+        flex: 1,
+        borderRadius: 15,
+        paddingHorizontal: 6,
         width: 30,
         height: 30,
         top: 10,
-        justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 15,
         right: 10,
     },
     cancelText: {
