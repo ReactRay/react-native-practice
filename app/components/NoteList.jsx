@@ -22,7 +22,5 @@ const { list } = StyleSheet.create({
         flex: 1,
         gap: 10,
         padding: 10,
-        border: '1px solid #ccc',
-        backgroundColor: '#dae8e7ff',
     },
 })

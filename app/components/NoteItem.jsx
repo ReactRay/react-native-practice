@@ -15,12 +15,15 @@ export default NoteItem
 const styles = StyleSheet.create({
     noteItem: {
         padding: 16,
-        border: '1px solid #a9cbadff',
-        backgroundColor: '#3c3d3cff',
+        backgroundColor: '#ceb99fff',
+        borderRadius: 10,
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+
     },
     noteText: {
         fontSize: 16,
-        color: '#f1eeeeff',
-        fontWeight: '500',
+        color: '#ffffffff',
+        fontWeight: '400',
+        letterSpacing: 4,
     }
 });

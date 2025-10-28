@@ -12,8 +12,12 @@ export default function Index() {
       style={container}
     >
       <Image source={job} style={image} />
-      <Text>welcome to my project!</Text>
-      <Text>Hard work before talent!</Text>
+      <View style={textContainer}>
+
+        <Text style={text} >welcome to my project!</Text>
+        <Text style={text}>Hard work before talent!</Text>
+      </View>
+
 
       <TouchableOpacity style={button} onPress={() => router.push('/notes')}>
         <Text>
@@ -25,7 +29,7 @@ export default function Index() {
 }
 
 
-const { container, image, button } = StyleSheet.create({
+const { text, textContainer, container, image, button } = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -38,9 +42,21 @@ const { container, image, button } = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
-    backgroundColor: '#a98f70ff',
+    backgroundColor: '#ceb99fff',
     padding: 10,
     borderRadius: 5
   }
   ,
+  textContainer: {
+    marginBottom: 20,
+    alignItems: 'center',
+    gap: 10,
+  },
+  text: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: '400',
+    letterSpacing: 2,
+    fontFamily: 'CURSIVE',
+  }
 })
