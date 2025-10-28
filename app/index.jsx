@@ -1,9 +1,12 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import job from '@/assets/images/job3.jpg';
+import { useRouter } from "expo-router";
 
 export default function Index() {
+
+
+  const router = useRouter();
   return (
     <View
       style={container}
@@ -11,12 +14,18 @@ export default function Index() {
       <Image source={job} style={image} />
       <Text>welcome to my project!</Text>
       <Text>Hard work before talent!</Text>
+
+      <TouchableOpacity style={button} onPress={() => router.push('/notes')}>
+        <Text>
+          get started
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 
-const { container, image } = StyleSheet.create({
+const { container, image, button } = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -27,5 +36,11 @@ const { container, image } = StyleSheet.create({
     height: 200,
     marginBottom: 20,
     borderRadius: 10,
+  },
+  button: {
+    backgroundColor: '#a98f70ff',
+    padding: 10,
+    borderRadius: 5
   }
+  ,
 })
